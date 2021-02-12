@@ -25,21 +25,14 @@ lazy val akkaHttpVersion = "10.2.3"
 lazy val akkaGrpcVersion = "1.1.0"
 lazy val akka = "com.typesafe.akka"
 
-
 val server_api = (project in file("server_api"))
   .enablePlugins(AkkaGrpcPlugin)
   .settings(scalaVersion := "2.13.4")
 
-//val server = (project in file("server"))
-//  .settings(commonSettings)
-//  .dependsOn(server_api)
-//
-val client = (project in file("client"))
+val server = (project in file("server"))
   .settings(commonSettings)
   .dependsOn(server_api)
 
-val whole = (project in file("."))
+val client = (project in file("client"))
   .settings(commonSettings)
   .dependsOn(server_api)
-//  .aggregate(server, client)
-  .aggregate(client)

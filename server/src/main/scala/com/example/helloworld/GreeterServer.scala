@@ -48,7 +48,7 @@ class GreeterServer(system: ActorSystem[_]) {
 
     val bound: Future[Http.ServerBinding] = Http(system)
       .newServerAt(interface = "127.0.0.1", port = 8080)
-      .enableHttps(serverHttpContext)
+      .enableHttps(httpsContext)
       .bind(service)
       .map(_.addToCoordinatedShutdown(hardTerminationDeadline = 10.seconds))
 
@@ -64,7 +64,7 @@ class GreeterServer(system: ActorSystem[_]) {
     bound
   }
 
-  private def serverHttpContext: HttpsConnectionContext = {
+  private def httpsContext: HttpsConnectionContext = {
     val privateKey = DERPrivateKeyLoader.load(PEMDecoder.decode(readPrivateKeyPem()))
     val fact = CertificateFactory.getInstance("X.509")
     val cer = fact.generateCertificate(
@@ -82,10 +82,9 @@ class GreeterServer(system: ActorSystem[_]) {
     keyManagerFactory.init(ks, null)
     val context = SSLContext.getInstance("TLS")
     context.init(keyManagerFactory.getKeyManagers, null, new SecureRandom)
-    ConnectionContext.https(context)
+    ConnectionContext.httpsServer(context)
   }
 
-  private def readPrivateKeyPem(): String =
-    Source.fromResource("certs/server1.key").mkString
+  private def readPrivateKeyPem(): String = Source.fromResource("certs/server1.key").mkString
 
 }
