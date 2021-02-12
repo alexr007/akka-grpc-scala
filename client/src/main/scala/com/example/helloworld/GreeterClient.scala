@@ -24,7 +24,7 @@ object GreeterClient {
     List("Alice", "Bob", "Jim")
       .foreach(makeSingleRequest)
 
-//    if (args.nonEmpty) names.foreach(streamingBroadcast)
+    //    if (args.nonEmpty) names.foreach(streamingBroadcast)
 
     def makeSingleRequest(name: String): Unit = {
       println(s"Performing Single request: $name")
@@ -38,26 +38,26 @@ object GreeterClient {
       }
     }
 
-//    def streamingBroadcast(name: String): Unit = {
-//      println(s"Performing streaming requests: $name")
-//
-//      val requestStream: Source[HelloRequest, NotUsed] =
-//        Source
-//          .tick(1.second, 1.second, "tick")
-//          .zipWithIndex
-//          .map { case (_, i) => i }
-//          .map(i => HelloRequest(s"$name-$i"))
-//          .mapMaterializedValue(_ => NotUsed)
-//
-//      val responseStream: Source[HelloReply, NotUsed] = client.sayHelloToAll(requestStream)
-//      val done: Future[Done] =
-//        responseStream.runForeach(reply => println(s"$name got streaming reply: ${reply.message}"))
-//
-//      done.onComplete {
-//        case Success(_) => println("streamingBroadcast done")
-//        case Failure(e) => println(s"Error streamingBroadcast: $e")
-//      }
-//    }
+    //    def streamingBroadcast(name: String): Unit = {
+    //      println(s"Performing streaming requests: $name")
+    //
+    //      val requestStream: Source[HelloRequest, NotUsed] =
+    //        Source
+    //          .tick(1.second, 1.second, "tick")
+    //          .zipWithIndex
+    //          .map { case (_, i) => i }
+    //          .map(i => HelloRequest(s"$name-$i"))
+    //          .mapMaterializedValue(_ => NotUsed)
+    //
+    //      val responseStream: Source[HelloReply, NotUsed] = client.sayHelloToAll(requestStream)
+    //      val done: Future[Done] =
+    //        responseStream.runForeach(reply => println(s"$name got streaming reply: ${reply.message}"))
+    //
+    //      done.onComplete {
+    //        case Success(_) => println("streamingBroadcast done")
+    //        case Failure(e) => println(s"Error streamingBroadcast: $e")
+    //      }
+    //    }
 
   }
 
