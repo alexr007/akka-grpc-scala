@@ -1,6 +1,6 @@
 import sbt.Keys.scalaVersion
 
-name := "akka-grpc-quickstart-scala"
+name := "akka-grpc-scala"
 
 val commonSettings = Seq(
   scalaVersion := "2.13.4",
